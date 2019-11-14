@@ -37,7 +37,7 @@ def search_for_hashtags(consumer_key, consumer_secret, access_token, access_toke
         #for each tweet matching our hashtags, write relevant info to the spreadsheet
         for tweet in tweepy.Cursor(api.search, q=hashtag_phrase+' -filter:retweets', \
                                    lang="en", tweet_mode='extended').items(100):
-            w.writerow([tweet.created_at, tweet.full_text.replace('\n','').encode('utf-8'), tweet.user.screen_name.encode('utf-8'), [e['text'].encode('utf-8') for e in tweet._json['entities']['hashtags']], tweet.user.followers_count])
+            w.writerow([tweet.created_at, tweet.full_text.replace('\n','').encode('utf-8'), tweet.user.screen_name.encode('utf-8'), [e['text'].encode('utf-8') for e in tweet._json['entities']['hashtags']], tweet.user.followers_count, tweet.retweet_count, tweet.favourite_count])
 
 if __name__ == '__main__':
     search_for_hashtags(consumer_key, consumer_secret, access_token, access_token_secret, hashtag_phrase)
